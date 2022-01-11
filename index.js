@@ -62,15 +62,15 @@ inquirer.prompt(
         
         ### Functionality:
 
-        \\\${data.Functionality}\\\
+        \'\'\'${data.Functionality}\'\'\'
         
         ### Installation:
 
-        \\\${data.Install}\\\
+        \'\'\'${data.Install}\'\'\'
 
         ### Usage:
 
-        \\\${data.Usage}\\\
+        \'\'\'${data.Usage}\'\'\'
 
         ### Credits:
 
@@ -78,7 +78,7 @@ inquirer.prompt(
         
         ### Links:
 
-        \\\${data.Links}\\`
+        \'\'\'${data.Links}\'\'\'`
     }
 
     //This will create the README.md file with he prompts and inputs.
