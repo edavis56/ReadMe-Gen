@@ -4,6 +4,10 @@ const inquirer = require('inquirer');
 //This is an NPM package that allows me to add a file to the file system    
 const fs = require('fs');
 
+//Local pulls for js functions to be used in this file
+const pReadMe = require('./readMe');
+const apiCall = require('./gitApi');
+
 //This is where the prompts are created. 
 const questions = () =>
 inquirer.prompt(
@@ -20,70 +24,52 @@ inquirer.prompt(
         },
         {
             type: 'input',
-            message: 'How do I use the App?',
-            name: 'Functionality',
-        },
-        {
-            type: 'input',
-            message: 'What are the steps required to install your project?',
-            name: 'Install',
+            message: 'How do I install the App?',
+            name: 'Installation',
         },
         {
             type: 'input',
             message: 'Provide instructions and examples for use.',
             name: 'Usage',
         },
+        /*{
+            type: 'list',
+            message: 'What license should be used?',
+            choices: ['GNU AGPLv3', 'GNU GPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'The Unlicense']
+            name: 'License',
+        },*/
         {
             type: 'input',
-            message: 'List collaborators.',
-            name: 'Credits',
-        },
-        {
-            type: 'input',
-            message: 'GitHub Links',
-            name: 'Links',
+            message: 'Who all contributed to this project?',
+            name: 'Contributing',
         },
     ]);
 
-    //This function creates the formatting for the ReadMe.md file.
-    function generateMD(data){
-        return`# ${data.Title}
+    async function install () {
 
-        ## Description:
+        const userInput = await inquirer.prompt(questions); 
 
-        ${data.Description}
+        const userInfo = await apiCall.getUser(userInfo);
 
-        ## Table of Contents:
-        * Functionality
-        * Installation
-        * Usage
-        * Credits
-        * Links
-        
-        ### Functionality:
+        const pReadMe = readMe(userInput, userInfo);
 
-        \'\'\'${data.Functionality}\'\'\'
-        
-        ### Installation:
-
-        \'\'\'${data.Install}\'\'\'
-
-        ### Usage:
-
-        \'\'\'${data.Usage}\'\'\'
-
-        ### Credits:
-
-        \'\'\'${data.Credits}\'\'\'
-        
-        ### Links:
-
-        \'\'\'${data.Links}\'\'\'`
+        await writeFile('ReadMe.md', markdown); 
     }
 
-    //This will create the README.md file with he prompts and inputs.
+
+
+
+
+
+
+
+
+
+
+
+    /*This will create the README.md file with he prompts and inputs.
     questions()
     .then((data) => fs.writeFile('README.md', generateMD(data), function(err){
         if (err) throw err;
         console.log("ReadMe created!");
-    }));
+    }));*/
